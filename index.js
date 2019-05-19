@@ -12,17 +12,21 @@ const SET_PODS_EVENT = 'SET_PODS_EVENT';
 const CHANGE_ACTIVE_CLUSTER_EVENT = 'CHANGE_ACTIVE_CLUSTER_EVENT';
 const TIMEOUT = 500;
 
-class PodsWidget extends EventEmitter {
+class PodsWidget {
+  constructor(eventMiddleWare) {
+    this.eventMiddleware = eventMiddleWare;
+  }
+
   get() {
     setInterval(() => {
       exec('kubectl get pods -o=json', (error, stdout) => {
-        this.emit(SET_PODS_EVENT, JSON.parse(stdout));
+        this.eventMiddleware.emit(SET_PODS_EVENT, JSON.parse(stdout));
       });
     }, TIMEOUT);
   }
 
   display() {
-    this.on(SET_PODS_EVENT, data => {
+    this.eventMiddleware.on(SET_PODS_EVENT, data => {
       const { items } = data;
       const podsData = items.map(item => [
         _.get(item, 'metadata.name', ''),
@@ -60,19 +64,19 @@ class PodsWidget extends EventEmitter {
   }
 }
 
-class ActiveClusterWidget extends EventEmitter {
-  constructor() {
-    super();
+class ActiveClusterWidget {
+  constructor(eventMiddleWare) {
     this.previousCluster = '';
+    this.eventMiddleware = eventMiddleWare;
   }
 
   get() {
     setInterval(() => {
       exec('kubectl config current-context', (error, stdout) => {
-        this.emit(SET_ACTIVE_CLUSTER_EVENT, stdout);
+        this.eventMiddleware.emit(SET_ACTIVE_CLUSTER_EVENT, stdout);
 
         if (stdout !== this.previousCluster) {
-          this.emit(CHANGE_ACTIVE_CLUSTER_EVENT);
+          this.eventMiddleware.emit(CHANGE_ACTIVE_CLUSTER_EVENT);
           this.previousCluster = stdout;
         }
       });
@@ -80,7 +84,7 @@ class ActiveClusterWidget extends EventEmitter {
   }
 
   display() {
-    this.on(SET_ACTIVE_CLUSTER_EVENT, data => {
+    this.eventMiddleware.on(SET_ACTIVE_CLUSTER_EVENT, data => {
       const log = grid.set(0, 0, 3, 3, contrib.log, {
         fg: 'green',
         selectedFg: 'green',
@@ -93,8 +97,9 @@ class ActiveClusterWidget extends EventEmitter {
 }
 
 const Widgets = [ActiveClusterWidget, PodsWidget];
+const eventMiddleware = new EventEmitter();
 Widgets.forEach(Widget => {
-  const widget = new Widget();
+  const widget = new Widget(eventMiddleware);
   widget.get();
   widget.display();
 });
