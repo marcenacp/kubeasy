@@ -3,8 +3,9 @@ const EventEmitter = require('events');
 const { initWidgets } = require('./widgets');
 
 const kubeasy = () => {
-  const eventMiddleware = new EventEmitter();
-  initWidgets(eventMiddleware);
+  const state = {};
+  const middleware = new EventEmitter();
+  initWidgets(middleware);
 };
 
 module.exports = {
