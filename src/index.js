@@ -10,6 +10,10 @@ const grid = new contrib.grid({ rows: 12, cols: 12, screen: screen });
 const SET_ACTIVE_CLUSTER_EVENT = 'SET_ACTIVE_CLUSTER_EVENT';
 const SET_PODS_EVENT = 'SET_PODS_EVENT';
 const CHANGE_ACTIVE_CLUSTER_EVENT = 'CHANGE_ACTIVE_CLUSTER_EVENT';
+const DEBUG_EVENT = 'DEBUG_EVENT';
+const SET_LOGS_EVENT = 'SET_LOGS_EVENT';
+const GET_LOGS_EVENT = 'GET_LOGS_EVENT';
+
 const SHORT_TIMEOUT = 500;
 const LONG_TIMEOUT = 30000;
 
@@ -64,6 +68,63 @@ class PodsWidget {
       });
       table.focus();
       table.setData([['NAME', 'STATUS'], ...podsData]);
+      table.on('keypress', (_, key) => {
+        if (key.name === 'enter') {
+          this.eventMiddleware.emit(GET_LOGS_EVENT, podsData[table.selected][0]);
+        }
+      });
+    });
+  }
+}
+
+class DebugWidget {
+  constructor(eventMiddleWare) {
+    this.eventMiddleware = eventMiddleWare;
+  }
+
+  get() {}
+
+  display() {
+    this.eventMiddleware.on(DEBUG_EVENT, data => {
+      const log = grid.set(0, 4, 3, 3, contrib.log, {
+        label: 'Debug',
+      });
+      log.log(data.toString());
+      screen.append(log);
+    });
+  }
+}
+
+class LogWidget {
+  constructor(eventMiddleWare) {
+    this.eventMiddleware = eventMiddleWare;
+  }
+
+  get() {
+    this.eventMiddleware.on(GET_LOGS_EVENT, data => {
+      exec(`kubectl logs ${data}`, (error, stdout) => {
+        this.eventMiddleware.emit(SET_LOGS_EVENT, stdout);
+      });
+    });
+  }
+
+  display() {
+    this.eventMiddleware.on(SET_LOGS_EVENT, data => {
+      const logs = data.toString();
+      const logsBox = grid.set(3, 3, 9, 9, blessed.box, {
+        scrollable: true,
+        name: 'Debug',
+        content: logs,
+        vi: true,
+      });
+      logsBox.focus();
+      screen.append(logsBox);
+      logsBox.on('keypress', (_, key) => {
+        this.eventMiddleware.emit(DEBUG_EVENT, key.name);
+        if (key.name === 'Escape') {
+          logsBox.hide();
+        }
+      });
     });
   }
 }
@@ -89,18 +150,20 @@ class ActiveClusterWidget {
 
   display() {
     this.eventMiddleware.on(SET_ACTIVE_CLUSTER_EVENT, data => {
-      const log = grid.set(0, 0, 3, 3, contrib.log, {
-        fg: 'green',
-        selectedFg: 'green',
-        label: 'Active cluster',
-      });
-      log.log(data);
-      screen.append(log);
+      if (data !== this.previousCluster) {
+        const log = grid.set(0, 0, 3, 3, contrib.log, {
+          fg: 'green',
+          selectedFg: 'green',
+          label: 'Active cluster',
+        });
+        log.log(data);
+        screen.append(log);
+      }
     });
   }
 }
 
-const Widgets = [ActiveClusterWidget, PodsWidget];
+const Widgets = [ActiveClusterWidget, PodsWidget, DebugWidget, LogWidget];
 const eventMiddleware = new EventEmitter();
 Widgets.forEach(Widget => {
   const widget = new Widget(eventMiddleware);
