@@ -8,6 +8,9 @@
     "start": "node src/index.js",
     "test": "prettier **/*.js --list-different"
   },
+  "bin": {
+    "kubeasy": "bin/index.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/marcenacp/kubeasy.git"
