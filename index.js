@@ -10,7 +10,8 @@ const grid = new contrib.grid({ rows: 12, cols: 12, screen: screen });
 const SET_ACTIVE_CLUSTER_EVENT = 'SET_ACTIVE_CLUSTER_EVENT';
 const SET_PODS_EVENT = 'SET_PODS_EVENT';
 const CHANGE_ACTIVE_CLUSTER_EVENT = 'CHANGE_ACTIVE_CLUSTER_EVENT';
-const TIMEOUT = 500;
+const SHORT_TIMEOUT = 500;
+const LONG_TIMEOUT = 30000;
 
 class PodsWidget {
   constructor(eventMiddleWare) {
@@ -18,11 +19,14 @@ class PodsWidget {
   }
 
   get() {
-    setInterval(() => {
+    const executeCommand = () => {
       exec('kubectl get pods -o=json', (error, stdout) => {
         this.eventMiddleware.emit(SET_PODS_EVENT, JSON.parse(stdout));
       });
-    }, TIMEOUT);
+    };
+
+    setInterval(executeCommand, LONG_TIMEOUT);
+    this.eventMiddleware.on(CHANGE_ACTIVE_CLUSTER_EVENT, executeCommand);
   }
 
   display() {
@@ -80,7 +84,7 @@ class ActiveClusterWidget {
           this.previousCluster = stdout;
         }
       });
-    }, TIMEOUT);
+    }, SHORT_TIMEOUT);
   }
 
   display() {
