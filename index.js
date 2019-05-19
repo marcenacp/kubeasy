@@ -104,5 +104,5 @@ Widgets.forEach(Widget => {
   widget.display();
 });
 
-screen.key(['escape', 'q', 'C-c'], () => process.exit(0));
+screen.key(['q'], () => process.exit(0));
 screen.render();
