@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon src/index.js",
     "start": "node src/index.js",
-    "test": "prettier *.js --list-different"
+    "test": "prettier **/*.js --list-different"
   },
   "repository": {
     "type": "git",
