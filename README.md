@@ -16,21 +16,18 @@ npm link
 
 ## Development
 
-#### Development pattern
+### Development pattern
 
 Help me develop `kubeasy`!
-I used development patterns that are very similar to react-redux.
+I use development patterns that are very similar to react-redux.
 
-**Hooks** (in `src/hooks`) get data from Kubernetes using `kubectl`.
-They are equivalent of sagas in Redux.
+- **Hooks** (in `src/hooks`) get data from Kubernetes using `kubectl` and store it in the state.
+They are equivalent of sagas and reducers in Redux.
 
-**Reducers** (in `src/reducers`) handle data and store it in the state.
-They are equivalent of reducers in Redux.
-
-**Widgets** (in `src/widgets`) watch inputs from user and render the command-line interface according to the state.
+- **Widgets** (in `src/widgets`) watch inputs from user and render the command-line interface according to the state.
 They are equivalent of components in React.
 
-#### Useful commands
+### Useful commands
 
 - `npm run dev`: launch application with [nodemon](https://github.com/remy/nodemon)
 - `npm run test`: check syntax in Javascript files using [prettier](https://github.com/prettier/prettier) (run in CI)
