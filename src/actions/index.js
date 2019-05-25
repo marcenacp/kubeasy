@@ -13,6 +13,7 @@ module.exports = {
   HIDE_LOGS: 'HIDE_LOGS',
   SET_LOGS: 'SET_LOGS',
   SHOW_LOGS: 'SHOW_LOGS',
+  UPDATE_LOGS: 'UPDATE_LOGS',
 
   // PODS
   GET_PODS: 'GET_PODS',
