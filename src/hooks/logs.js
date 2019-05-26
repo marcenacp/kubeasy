@@ -1,7 +1,7 @@
 const { exec } = require('child_process');
 
 const { GET_LOGS, SET_LOGS, UPDATE_LOGS } = require('../actions');
-const { LOGS, SHORT_TIMEOUT } = require('../constants');
+const { ACTIVE_POD, LOGS, SHORT_TIMEOUT } = require('../constants');
 
 class LogsHook {
   constructor(middleware, state) {
@@ -12,7 +12,8 @@ class LogsHook {
   get() {
     this.middleware.on(
       GET_LOGS,
-      podId => {
+      () => {
+        const podId = this.state[ACTIVE_POD];
         exec(`kubectl logs ${podId}`, (error, stdout) => {
           this.middleware.emit(SET_LOGS, stdout);
         });

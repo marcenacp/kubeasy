@@ -1,7 +1,7 @@
 const blessed = require('blessed');
 
-const { GET_LOGS, UPDATE_PODS } = require('../actions');
-const { PODS } = require('../constants');
+const { GET_BASH, GET_LOGS, UPDATE_PODS } = require('../actions');
+const { ACTIVE_POD, PODS } = require('../constants');
 
 class PodsWidget {
   constructor(middleware, state, screen, grid) {
@@ -42,8 +42,12 @@ class PodsWidget {
       table.focus();
       table.setData([['NAME', 'STATUS'], ...this.state[PODS]]);
       table.on('keypress', (_, key) => {
-        if (key.name === 'enter') {
-          this.middleware.emit(GET_LOGS, this.state[PODS][table.selected][0]);
+        this.state[ACTIVE_POD] = this.state[PODS][table.selected][0];
+        if (key.name === 'l') {
+          this.middleware.emit(GET_LOGS);
+        }
+        if (key.name === 's') {
+          this.middleware.emit(GET_BASH);
         }
       });
     });

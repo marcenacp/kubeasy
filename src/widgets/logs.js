@@ -15,7 +15,7 @@ class LogsWidget {
     this.middleware.on(UPDATE_LOGS, () => {
       const logsBox = this.grid.set(3, 3, 9, 9, blessed.box, {
         scrollable: true,
-        name: 'Logs',
+        label: '( Logs )',
         content: this.state[LOGS],
         vi: true,
       });
