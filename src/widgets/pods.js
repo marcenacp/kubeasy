@@ -1,4 +1,5 @@
 const blessed = require('blessed');
+const _ = require('lodash');
 
 const { GET_BASH, GET_LOGS, UPDATE_PODS } = require('../actions');
 const { ACTIVE_POD, PODS } = require('../constants');
@@ -41,8 +42,8 @@ class PodsWidget {
       });
       table.focus();
       table.setData([['NAME', 'STATUS'], ...this.state[PODS]]);
-      table.on('keypress', (_, key) => {
-        this.state[ACTIVE_POD] = this.state[PODS][table.selected][0];
+      table.on('keypress', (event, key) => {
+        this.state[ACTIVE_POD] = _.get(this.state, `[${PODS}][${table.selected - 1}][0]`);
         if (key.name === 'l') {
           this.middleware.emit(GET_LOGS);
         }
