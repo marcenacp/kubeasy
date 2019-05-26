@@ -24,6 +24,7 @@
   "dependencies": {
     "blessed": "^0.1.81",
     "blessed-contrib": "^4.8.16",
+    "blessed-xterm": "^1.1.20",
     "lodash": "^4.17.11"
   },
   "devDependencies": {
