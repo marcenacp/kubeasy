@@ -14,6 +14,7 @@ const initWidgets = (middleware, state) => {
   Widgets.forEach(Widget => {
     const widget = new Widget(middleware, state, screen, grid);
     widget.render();
+    widget.focus();
   });
   screen.key(['C-c'], () => process.exit(0));
   screen.render();

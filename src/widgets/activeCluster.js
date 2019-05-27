@@ -13,19 +13,24 @@ class ActiveClusterWidget {
     this.state = state;
   }
 
-  render() {
+  focus() {
     this.middleware.on(UPDATE_ACTIVE_CLUSTER, () => {
       const activeCluster = this.state[ACTIVE_CLUSTER];
       if (activeCluster !== this.previousCluster) {
-        const log = this.grid.set(0, 0, 3, 3, contrib.log, {
-          fg: 'green',
-          selectedFg: 'green',
-          label: 'Active cluster',
-        });
-        log.log(activeCluster);
-        this.screen.append(log);
+        this.widget.log(activeCluster);
       }
     });
+  }
+
+  hide() {}
+
+  render() {
+    this.widget = this.grid.set(0, 0, 3, 3, contrib.log, {
+      fg: 'green',
+      selectedFg: 'green',
+      label: 'Active cluster',
+    });
+    this.screen.append(this.widget);
   }
 }
 
