@@ -11,8 +11,7 @@ class LogsWidget {
     this.grid = grid;
   }
 
-  // Function called in order to make widget appear
-  focus() {
+  render() {
     this.middleware.on(UPDATE_LOGS, () => {
       this.widget.focus();
     });
@@ -20,7 +19,7 @@ class LogsWidget {
 
   hide() {}
 
-  render() {
+  create() {
     this.widget = this.grid.set(3, 3, 9, 9, blessed.box, {
       scrollable: true,
       label: '( Logs )',

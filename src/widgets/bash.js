@@ -10,7 +10,7 @@ class BashWidget {
     this.screen = screen;
   }
 
-  focus() {
+  render() {
     this.middleware.on(GET_BASH, () => {
       const terminal = new XTerm({
         shell: process.env.SHELL || 'sh',
@@ -42,7 +42,7 @@ class BashWidget {
 
   hide() {}
 
-  render() {}
+  create() {}
 }
 
 module.exports = BashWidget;

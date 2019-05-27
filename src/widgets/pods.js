@@ -12,7 +12,7 @@ class PodsWidget {
     this.grid = grid;
   }
 
-  focus() {
+  render() {
     this.middleware.on(UPDATE_PODS, () => {
       this.widget.focus();
       this.widget.setData([['NAME', 'STATUS'], ...this.state[PODS]]);
@@ -21,7 +21,7 @@ class PodsWidget {
 
   hide() {}
 
-  render() {
+  create() {
     this.widget = this.grid.set(3, 0, 5, 5, blessed.listtable, {
       parent: this.screen,
       label: '( Pods )',

@@ -13,8 +13,8 @@ const initWidgets = (middleware, state) => {
   const Widgets = [BashWidget, LogsWidget, PodsWidget, ActiveClusterWidget];
   Widgets.forEach(Widget => {
     const widget = new Widget(middleware, state, screen, grid);
+    widget.create();
     widget.render();
-    widget.focus();
   });
   screen.key(['C-c'], () => process.exit(0));
   screen.render();

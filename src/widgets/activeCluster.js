@@ -13,7 +13,7 @@ class ActiveClusterWidget {
     this.state = state;
   }
 
-  focus() {
+  render() {
     this.middleware.on(UPDATE_ACTIVE_CLUSTER, () => {
       const activeCluster = this.state[ACTIVE_CLUSTER];
       if (activeCluster !== this.previousCluster) {
@@ -24,7 +24,7 @@ class ActiveClusterWidget {
 
   hide() {}
 
-  render() {
+  create() {
     this.widget = this.grid.set(0, 0, 3, 3, contrib.log, {
       fg: 'green',
       selectedFg: 'green',
