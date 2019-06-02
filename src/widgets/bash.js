@@ -41,6 +41,11 @@ class BashWidget {
       const podId = this.state[ACTIVE_POD];
       terminal.injectInput(`kubectl exec -it ${podId} -- bash\n`);
       this.screen.append(terminal);
+      terminal.on('keypress', (_, key) => {
+        if (key.name === 'escape') {
+          terminal.destroy();
+        }
+      });
     });
   }
 

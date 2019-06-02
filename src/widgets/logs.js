@@ -19,18 +19,25 @@ class LogsWidget {
       this.widget.setFront();
       this.widget.show();
       this.widget.focus();
+      this.screen.render();
     });
   }
 
   hide() {}
 
   create() {
-    this.widget = blessed.box({
-      label: '( Logs )',
-
-      scrollable: true,
-      alwaysScroll: true,
+    this.widget = blessed.log({
+      parent: this.screen,
+      align: 'left',
+      alwaysScroll: false,
+      content: 'Loading...',
+      height: '70%',
       keys: true,
+      label: '( Logs )',
+      left: 'center',
+      scrollable: true,
+      top: 'center',
+      width: '70%',
       style: {
         selected: {
           bg: 'green',
@@ -46,18 +53,12 @@ class LogsWidget {
         fg: 'blue',
         ch: '|',
       },
-      align: 'left',
-      width: '70%',
-      height: '70%',
-      top: 'center',
-      left: 'center',
-      content: 'Loading...',
     });
     this.widget.hide();
-    this.screen.append(this.widget);
     this.widget.on('keypress', (_, key) => {
       if (key.name === 'escape') {
         this.widget.hide();
+        this.screen.render();
       }
     });
   }
