@@ -35,7 +35,7 @@ class BashWidget {
         top: 'center',
         width: Math.floor(this.screen.width * 0.7),
         height: Math.floor(this.screen.height * 0.7),
-        label: 'Bash',
+        label: '( Bash )',
       });
       terminal.focus();
       const podId = this.state[ACTIVE_POD];
