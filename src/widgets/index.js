@@ -1,5 +1,4 @@
 const blessed = require('blessed');
-const contrib = require('blessed-contrib');
 const _ = require('lodash');
 
 const ActiveClusterWidget = require('./activeCluster');
