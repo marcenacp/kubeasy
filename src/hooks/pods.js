@@ -33,7 +33,7 @@ class PodsHook {
     this.middleware.on(SET_PODS, data => {
       const formattedData = this.formatData(data);
 
-      if (this.state[PODS] !== formattedData) {
+      if (!_.isEqual(this.state[PODS], formattedData)) {
         this.state[PODS] = formattedData;
         this.middleware.emit(UPDATE_PODS);
       }

@@ -5,11 +5,13 @@ const { GET_BASH, GET_LOGS, UPDATE_PODS } = require('../actions');
 const { ACTIVE_POD, PODS } = require('../constants');
 
 class PodsWidget {
-  constructor(middleware, state, screen, grid) {
+  constructor(middleware, state, screen) {
     this.middleware = middleware;
     this.state = state;
     this.screen = screen;
-    this.grid = grid;
+
+    this.create();
+    this.render();
   }
 
   render() {
@@ -22,7 +24,7 @@ class PodsWidget {
   hide() {}
 
   create() {
-    this.widget = this.grid.set(3, 0, 5, 5, blessed.listtable, {
+    this.widget = blessed.listtable({
       parent: this.screen,
       label: '( Pods )',
       keys: true,
@@ -47,6 +49,10 @@ class PodsWidget {
         },
       },
       align: 'center',
+      top: '30%',
+      left: 0,
+      width: '50%',
+      height: '50%',
     });
     this.widget.on('keypress', (event, key) => {
       this.state[ACTIVE_POD] = _.get(this.state, `[${PODS}][${this.widget.selected - 1}][0]`);

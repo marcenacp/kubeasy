@@ -4,7 +4,7 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
-    "dev": "nodemon src/index.js",
+    "dev": "nodemon -I src/index.js",
     "start": "node src/index.js",
     "test": "prettier **/*.js --list-different"
   },

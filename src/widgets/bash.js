@@ -4,10 +4,13 @@ const { GET_BASH } = require('../actions');
 const { ACTIVE_POD } = require('../constants');
 
 class BashWidget {
-  constructor(middleware, state, screen, grid) {
+  constructor(middleware, state, screen) {
     this.middleware = middleware;
     this.state = state;
     this.screen = screen;
+
+    this.create();
+    this.render();
   }
 
   render() {
@@ -27,10 +30,11 @@ class BashWidget {
           focus: { border: { fg: 'green' } },
           scrolling: { border: { fg: 'red' } },
         },
-        left: 0,
-        top: 0,
-        width: Math.floor(this.screen.width / 2),
-        height: this.screen.height,
+        align: 'left',
+        left: 'center',
+        top: 'center',
+        width: Math.floor(this.screen.width * 0.7),
+        height: Math.floor(this.screen.height * 0.7),
         label: 'Bash',
       });
       terminal.focus();
