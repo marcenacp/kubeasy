@@ -25,18 +25,21 @@ class PodsWidget {
 
   create() {
     this.widget = blessed.listtable({
-      parent: this.screen,
-      label: '( Pods )',
-      keys: true,
-      mouse: true,
-      data: null,
-      tags: true,
-      interactive: true,
+      align: 'center',
       border: 'line',
-      hover: {
-        bg: 'blue',
-      },
+      data: null,
+      height: '50%',
+      interactive: true,
+      keys: true,
+      label: '( Pods )',
+      left: 0,
+      mouse: true,
+      parent: this.screen,
+      tags: true,
+      top: '30%',
+      width: '50%',
       style: {
+        border: { fg: 'blue' },
         header: {
           fg: 'blue',
           bold: true,
@@ -48,11 +51,9 @@ class PodsWidget {
           },
         },
       },
-      align: 'center',
-      top: '30%',
-      left: 0,
-      width: '50%',
-      height: '50%',
+      hover: {
+        bg: 'blue',
+      },
     });
     this.widget.on('keypress', (event, key) => {
       this.state[ACTIVE_POD] = _.get(this.state, `[${PODS}][${this.widget.selected - 1}][0]`);

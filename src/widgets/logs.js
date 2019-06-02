@@ -27,7 +27,6 @@ class LogsWidget {
 
   create() {
     this.widget = blessed.log({
-      parent: this.screen,
       align: 'left',
       alwaysScroll: false,
       content: 'Loading...',
@@ -35,13 +34,13 @@ class LogsWidget {
       keys: true,
       label: '( Logs )',
       left: 'center',
+      parent: this.screen,
       scrollable: true,
       top: 'center',
       width: '70%',
       style: {
-        selected: {
-          bg: 'green',
-        },
+        selected: { bg: 'green' },
+        focus: { border: { fg: 'green' } },
       },
       border: {
         type: 'line',

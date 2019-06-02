@@ -28,32 +28,24 @@ class ActiveClusterWidget {
 
   create() {
     this.widget = blessed.box({
-      label: '( Active cluster )',
-
-      scrollable: true,
+      align: 'left',
       alwaysScroll: true,
+      content: 'Loading...',
+      height: '30%',
       keys: true,
+      label: '( Active cluster )',
+      left: 0,
+      scrollable: true,
+      top: 0,
+      width: '30%',
       style: {
-        selected: {
-          bg: 'green',
-        },
+        selected: { bg: 'blue' },
+        focus: { border: { fg: 'blue' } },
+        border: { fg: 'blue' },
       },
       border: {
         type: 'line',
       },
-      hover: {
-        bg: 'blue',
-      },
-      scrollbar: {
-        fg: 'blue',
-        ch: '|',
-      },
-      align: 'left',
-      width: '30%',
-      height: '30%',
-      top: 0,
-      left: 0,
-      content: 'Loading...',
     });
     this.screen.append(this.widget);
   }

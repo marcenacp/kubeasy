@@ -16,13 +16,19 @@ class BashWidget {
   render() {
     this.middleware.on(GET_BASH, () => {
       const terminal = new XTerm({
-        shell: process.env.SHELL || 'sh',
+        align: 'left',
         args: [],
-        env: process.env,
-        cwd: process.cwd(),
-        cursorType: 'block',
         border: 'line',
+        cursorType: 'block',
+        cwd: process.cwd(),
+        env: process.env,
+        height: Math.floor(this.screen.height * 0.7),
+        label: '( Bash )',
+        left: 'center',
         scrollback: 1000,
+        shell: process.env.SHELL || 'sh',
+        top: 'center',
+        width: Math.floor(this.screen.width * 0.7),
         style: {
           fg: 'default',
           bg: 'default',
@@ -30,12 +36,6 @@ class BashWidget {
           focus: { border: { fg: 'green' } },
           scrolling: { border: { fg: 'red' } },
         },
-        align: 'left',
-        left: 'center',
-        top: 'center',
-        width: Math.floor(this.screen.width * 0.7),
-        height: Math.floor(this.screen.height * 0.7),
-        label: '( Bash )',
       });
       terminal.focus();
       const podId = this.state[ACTIVE_POD];
