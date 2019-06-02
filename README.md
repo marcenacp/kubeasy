@@ -18,14 +18,12 @@ npm link
 
 ### Development pattern
 
-Help me develop `kubeasy`!
-I use development patterns that are very similar to react-redux.
+I use [blessed](https://github.com/chjj/blessed) to render the command-line interface,
+and Node's [EventEmitter](https://nodejs.org/api/events.html) to propagate data between hooks and widgets.
 
 - **Hooks** (in `src/hooks`) get data from Kubernetes using `kubectl` and store it in the state.
-They are equivalent of sagas and reducers in Redux.
 
 - **Widgets** (in `src/widgets`) watch inputs from user and render the command-line interface according to the state.
-They are equivalent of components in React.
 
 ### Useful commands
 
