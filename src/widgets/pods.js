@@ -28,7 +28,7 @@ class PodsWidget {
       align: 'center',
       border: 'line',
       data: null,
-      height: '50%',
+      height: Math.floor(this.screen.height * 0.8),
       interactive: true,
       keys: true,
       label: '( Pods )',
@@ -36,8 +36,8 @@ class PodsWidget {
       mouse: true,
       parent: this.screen,
       tags: true,
-      top: '30%',
-      width: '50%',
+      top: Math.floor(this.screen.height * 0.2),
+      width: '100%',
       style: {
         border: { fg: 'blue' },
         header: {
