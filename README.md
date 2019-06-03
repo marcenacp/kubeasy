@@ -2,6 +2,10 @@
 
 [![Build Status](https://travis-ci.org/marcenacp/kubeasy.svg?branch=master)](https://travis-ci.org/marcenacp/kubeasy)
 
+`kubeasy` is an interactive wrapper around `kubectl` to help you manage your Kubernetes clusters.
+
+![](./public/kubeasy.gif)
+
 ## Installation
 
 - Install `kubeasy` by downloading the latest version from Github
