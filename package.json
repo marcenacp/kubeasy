@@ -5,8 +5,9 @@
   "main": "src/index.js",
   "scripts": {
     "dev": "nodemon bin/index.js",
+    "lint": "prettier **/*.js --list-different",
     "start": "node bin/index.js",
-    "test": "prettier **/*.js --list-different"
+    "test": "mocha src/**/*.test.js"
   },
   "bin": {
     "kubeasy": "bin/index.js"
@@ -28,6 +29,7 @@
     "xterm": "^3.8.1"
   },
   "devDependencies": {
+    "mocha": "^6.1.4",
     "nodemon": "^1.19.0",
     "prettier": "^1.17.1"
   }
