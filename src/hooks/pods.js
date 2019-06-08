@@ -22,11 +22,24 @@ class PodsHook {
   }
 
   formatData(data) {
+    const LAST_TRANSITION_TIME = 'lastTransitionTime';
     const { items } = data;
-    return items.map(item => [
-      _.get(item, 'metadata.name', ''),
-      _.get(item, 'status.conditions[0].type', ''),
-    ]);
+    return items.map(item => {
+      const name = _.get(item, 'metadata.name', '');
+      const conditions = _.get(item, 'status.conditions', [])
+        .filter(condition => !!_.get(condition, LAST_TRANSITION_TIME))
+        .map(condition => ({
+          ...condition,
+          [LAST_TRANSITION_TIME]: new Date(_.get(condition, LAST_TRANSITION_TIME)),
+        }))
+        .sort(
+          (condition1, condition2) =>
+            _.get(condition2, LAST_TRANSITION_TIME) - _.get(condition1, LAST_TRANSITION_TIME),
+        );
+      const latestCondition = _.get(conditions, `[0].type`, '');
+
+      return [name, latestCondition];
+    });
   }
 
   set() {

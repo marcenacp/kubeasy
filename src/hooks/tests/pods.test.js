@@ -1,9 +1,15 @@
 const assert = require('assert');
 
+const pods = require('./pods.json');
+const PodsWidget = require('../pods.js');
+
 describe('[HOOKS] Pods', () => {
   describe('formatData', () => {
     it('should extract status', () => {
-      assert.equal([1, 2, 3].indexOf(4), -1);
+      const podsWidget = new PodsWidget();
+      const expectedData = [['pod-1-xxxxx', 'Ready']];
+
+      assert.deepEqual(podsWidget.formatData(pods), expectedData);
     });
   });
 });

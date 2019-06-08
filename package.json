@@ -7,7 +7,8 @@
     "dev": "nodemon bin/index.js",
     "lint": "prettier **/*.js --list-different",
     "start": "node bin/index.js",
-    "test": "mocha src/**/*.test.js"
+    "test": "mocha src/**/*.test.js",
+    "test:watch": "mocha --watch src/**/*.test.js"
   },
   "bin": {
     "kubeasy": "bin/index.js"

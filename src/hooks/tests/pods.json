@@ -1,0 +1,158 @@
+{
+  "apiVersion": "v1",
+  "items": [
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "annotations": {
+          "kubernetes.io/limit-ranger": "LimitRanger plugin set: cpu request for container pod-1-name"
+        },
+        "creationTimestamp": "2019-06-07T10:55:58Z",
+        "generateName": "pod-1-name",
+        "labels": {
+          "io.kompose.service": "pod-1"
+        },
+        "name": "pod-1-xxxxx",
+        "namespace": "default",
+        "ownerReferences": [
+          {
+            "apiVersion": "apps/v1",
+            "blockOwnerDeletion": true,
+            "controller": true,
+            "kind": "ReplicaSet"
+          }
+        ],
+        "selfLink": "/api/v1/namespaces/default/pods/pod-1-xxxxx"
+      },
+      "spec": {
+        "containers": [
+          {
+            "args": [
+              "start"
+            ],
+            "env": [
+              {
+                "name": "ENVIRONMENT_VARIABLE_1",
+                "value": "environment_variable_1"
+              },
+              {
+                "name": "ENVIRONMENT_VARIABLE_2",
+                "value": "environment_variable_2"
+              }
+            ],
+            "image": "gcr.io/production/pod-1:latest",
+            "imagePullPolicy": "Always",
+            "name": "pod-name-1",
+            "ports": [
+              {
+                "containerPort": 4000,
+                "protocol": "TCP"
+              }
+            ],
+            "resources": {
+              "requests": {
+                "cpu": "100m"
+              }
+            },
+            "terminationMessagePath": "/dev/termination-log",
+            "terminationMessagePolicy": "File",
+            "volumeMounts": [
+              {
+                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                "name": "default-token-mn6st",
+                "readOnly": true
+              }
+            ]
+          }
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "nodeName": "node-name-1",
+        "priority": 0,
+        "restartPolicy": "Always",
+        "schedulerName": "default-scheduler",
+        "securityContext": {},
+        "serviceAccount": "default",
+        "serviceAccountName": "default",
+        "terminationGracePeriodSeconds": 30,
+        "tolerations": [
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/not-ready",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          },
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/unreachable",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          }
+        ],
+        "volumes": [
+          {
+            "name": "default-token-mn6st",
+            "secret": {
+              "defaultMode": 420,
+              "secretName": "default-token-mn6st"
+            }
+          }
+        ]
+      },
+      "status": {
+        "conditions": [
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2019-06-07T10:55:58Z",
+            "status": "True",
+            "type": "Initialized"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2019-06-07T10:57:31Z",
+            "status": "True",
+            "type": "Ready"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": null,
+            "status": "True",
+            "type": "ContainersReady"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2019-06-07T10:55:58Z",
+            "status": "True",
+            "type": "PodScheduled"
+          }
+        ],
+        "containerStatuses": [
+          {
+            "containerID": "LONG_HASH",
+            "image": "gcr.io/production/pod-1:latest",
+            "imageID": "LONG_HASH",
+            "lastState": {},
+            "name": "pod-1-name",
+            "ready": true,
+            "restartCount": 0,
+            "state": {
+              "running": {
+                "startedAt": "2019-06-07T10:57:30Z"
+              }
+            }
+          }
+        ],
+        "hostIP": "127.0.0.1",
+        "phase": "Running",
+        "podIP": "127.0.0.1",
+        "qosClass": "Burstable",
+        "startTime": "2019-06-07T10:55:58Z"
+      }
+    }
+  ],
+  "kind": "List",
+  "metadata": {
+    "resourceVersion": "",
+    "selfLink": ""
+  }
+}

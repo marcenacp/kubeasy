@@ -35,4 +35,5 @@ and Node's [EventEmitter](https://nodejs.org/api/events.html) to propagate data 
 ### Useful commands
 
 - `npm run dev`: launch application with [nodemon](https://github.com/remy/nodemon)
-- `npm run test`: check syntax in Javascript files using [prettier](https://github.com/prettier/prettier) (run in CI)
+- `npm run test`: launch unit tests and check syntax in Javascript files using [prettier](https://github.com/prettier/prettier) (run in CI)
+- `npm run test:watch`: launch unit tests in watch mode
