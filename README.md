@@ -14,7 +14,7 @@ to help you manage your Kubernetes clusters.
 - Install `kubeasy` by downloading the latest version from Github
 ```bash
 git clone https://github.com/marcenacp/kubeasy.git
-cd easy-docker/
+cd kubeasy/
 npm install
 npm link
 ```
